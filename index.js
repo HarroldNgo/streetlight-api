@@ -11,7 +11,11 @@ const filesRoute = require('./routes/file')
 const multer = require("multer");
 const path = require("path")
 const fs = require("fs");
+const cors = require("cors");
 
+app.use(cors({
+    origin: ['http://localhost:3000','https://streetlight.onrender.com'],
+}))
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")))
