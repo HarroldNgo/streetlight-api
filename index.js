@@ -15,6 +15,7 @@ const cors = require("cors");
 
 app.use(cors({
     origin: ['http://localhost:3000','https://streetlight.onrender.com'],
+    credentials: true,
 }))
 dotenv.config();
 app.use(express.json());
