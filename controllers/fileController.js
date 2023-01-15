@@ -9,36 +9,38 @@ cloudinary.config({
   secure: true
 });
 
-
 const remove = (req, res) => {
   const fileName = req.params.name;
   const directoryPath = path.join(__dirname, '..', 'images/');
+  cloudinary.uploader
+    .destroy(fileName)
+    .then(result => console.log(result));
 
   fs.unlink(directoryPath + fileName, (err) => {
     if (err) {
-      console.log("failed to delete local image:"+err);
+      console.log("failed to delete local image:" + err);
     }
-    cloudinary.uploader
-    .destroy(fileName)
-    .then(result => console.log(result));
-    console.log('successfully deleted local image');  
+    else {
+      console.log('successfully deleted local image');
+    }
   });
 };
 
 const removeSync = (req, res) => {
   const fileName = req.params.name;
   const directoryPath = path.join(__dirname, '..', 'images/');
+  cloudinary.uploader
+    .destroy(fileName)
+    .then(result => console.log(result));
 
-  try {
-    fs.unlinkSync(directoryPath + fileName);
-    res.status(200).send({
-      message: "File is deleted.",
-    });
-  } catch (err) {
-    res.status(500).send({
-      message: "Could not delete the file. " + err,
-    });
-  }
+  fs.unlinkSync(directoryPath + fileName, (err) => {
+    if (err) {
+      console.log("failed to delete local image:" + err);
+    }
+    else {
+      console.log('successfully deleted local image');
+    }
+  });
 };
 
 module.exports = {

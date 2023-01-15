@@ -49,12 +49,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
     res.status(200).json("File has been uploaded");
-    console.log("images/"+req.file.filename)
+    console.log("images/" + req.file.filename)
     cloudinary.uploader
-        .upload("images/"+req.file.filename, {public_id: req.file.filename})
+        .upload("images/" + req.file.filename, { public_id: req.file.filename })
         .then(result => console.log(result));
 });
-console.log(__dirname)
 
 
 app.use("/api/posts", postRoute);
