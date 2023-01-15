@@ -16,16 +16,12 @@ const remove = (req, res) => {
 
   fs.unlink(directoryPath + fileName, (err) => {
     if (err) {
-      res.status(500).send({
-        message: "Could not delete the file. " + err,
-      });
+      console.log("failed to delete local image:"+err);
     }
     cloudinary.uploader
     .destroy(fileName)
     .then(result => console.log(result));
-    res.status(200).send({
-      message: "File is deleted.",
-    });
+    console.log('successfully deleted local image');  
   });
 };
 
