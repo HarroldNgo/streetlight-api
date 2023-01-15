@@ -19,6 +19,10 @@ const PostSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        photourl: {
+            type: String,
+            required: false,
+        },
         categories: {
             type: String,
             required: true,

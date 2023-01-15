@@ -12,9 +12,10 @@ const multer = require("multer");
 const path = require("path")
 const fs = require("fs");
 const cors = require("cors");
+const cloudinary = require('cloudinary').v2;
 
 app.use(cors({
-    origin: ['http://localhost:3000','https://streetlight.onrender.com'],
+    origin: ['http://localhost:3000', 'https://streetlight.onrender.com'],
     credentials: true,
 }))
 dotenv.config();
@@ -29,6 +30,13 @@ mongoose.connect(process.env.MONGO_URL, {
     .then(console.log("connected to MongoDB"))
     .catch(err => console.log(err))
 
+cloudinary.config({
+    cloud_name: 'dmluqp41s',
+    api_key: '927784175515996',
+    api_secret: 'WHmtma8na0svp1nuNePfSloIhvY',
+    secure: true
+});
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "images");
@@ -41,6 +49,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
     res.status(200).json("File has been uploaded");
+    console.log("images/"+req.file.filename)
+    cloudinary.uploader
+        .upload("images/"+req.file.filename, {public_id: req.file.filename})
+        .then(result => console.log(result));
 });
 console.log(__dirname)
 
