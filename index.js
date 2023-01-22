@@ -15,7 +15,7 @@ const cors = require("cors");
 const cloudinary = require('cloudinary').v2;
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://streetlight.onrender.com'],
+    origin: ['http://localhost:3000', 'https://streetlight.onrender.com','https://streetlightblog.com/','https://www.streetlightblog.com/'],
     credentials: true,
 }))
 dotenv.config();
