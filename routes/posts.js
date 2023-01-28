@@ -49,12 +49,12 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-
 //GET ALL POSTS 
 router.get("/", async (req, res) => {
     const catName = req.query.cat;
     const comingsoon = req.query.comingsoon;
     const frontpage = req.query.frontpage;
+    const id = req.query.id;
 
     try {
         let posts;
@@ -68,6 +68,13 @@ router.get("/", async (req, res) => {
             posts = await Post.find({
                 comingsoon: {
                     $in: [comingsoon]
+                }
+            })
+        }
+        else if (id) {
+            posts = await Post.find({
+                _id: {
+                    $in: [id]
                 }
             })
         }
