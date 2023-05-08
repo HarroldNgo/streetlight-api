@@ -42,8 +42,71 @@ router.delete("/:id", async (req, res) => {
 //GET POST
 router.get("/:id", async (req, res) => {
     try {
-        const post = await Post.findByIdAndUpdate(req.params.id);
+        const post = await Post.findByIdAndUpdate(req.params.id).sort({"_id":-1});
         res.status(200).json(post);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+//GET (EXCLUDING + frontpage) POSTS 
+router.get("/notcat/:cat/:frontpage", async (req, res) => {
+    try {
+        let posts;
+        posts = await Post.find({
+            categories: { $not: { $in: req.params.cat}},
+            frontpage: req.params.frontpage
+        }).sort({"_id":-1});
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+//GET (EXCLUDING) POSTS 
+router.get("/notcat/:cat", async (req, res) => {
+    try {
+        let posts;
+        posts = await Post.find({
+            categories: { $not: { $in: req.params.cat}},
+        }).sort({"_id":-1});
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+//GET (SPECIFIC 2 cats & frontpage) POSTS 
+router.get("/cat2/:cat1/:cat2/:frontpage", async (req, res) => {
+    try {
+        let posts;
+        posts = await Post.find({
+            categories: { $in: [req.params.cat1, req.params.cat2]},
+            frontpage: req.params.frontpage
+        }).sort({"_id":-1});
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+//GET (SPECIFIC 2 cats) POSTS 
+router.get("/cat2/:cat1/:cat2", async (req, res) => {
+    try {
+        let posts;
+        posts = await Post.find({
+            categories: { $in: [req.params.cat1, req.params.cat2]},
+        }).sort({"_id":-1});
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+//GET (SPECIFIC cat & frontpage) POSTS 
+router.get("/cat/:cat/:frontpage", async (req, res) => {
+    try {
+        let posts;
+        posts = await Post.find({
+            categories: req.params.cat,
+            frontpage: req.params.frontpage
+        }).sort({"_id":-1});
+        res.status(200).json(posts);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -63,30 +126,30 @@ router.get("/", async (req, res) => {
                 categories: {
                     $in: [catName]
                 }
-            });
+            }).sort({"_id":-1});
         } else if (comingsoon) {
             posts = await Post.find({
                 comingsoon: {
                     $in: [comingsoon]
                 }
-            })
+            }).sort({"_id":-1});
         }
         else if (id) {
             posts = await Post.find({
                 _id: {
                     $in: [id]
                 }
-            })
+            }).sort({"_id":-1});
         }
         else if (frontpage) {
             posts = await Post.find({
                 frontpage: {
                     $in: [frontpage]
                 }
-            })
+            }).sort({"_id":-1});
         }
         else {
-            posts = await Post.find();
+            posts = await Post.find().sort({"_id":-1});
         }
         res.status(200).json(posts);
     } catch (err) {

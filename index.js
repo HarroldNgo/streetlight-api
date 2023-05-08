@@ -8,14 +8,21 @@ const authRoute = require("./routes/auth");
 const regRoute = require("./routes/register");
 const refreshRoute = require("./routes/refresh");
 const filesRoute = require('./routes/file')
-const multer = require("multer");
 const path = require("path")
 const fs = require("fs");
 const cors = require("cors");
 const cloudinary = require('cloudinary').v2;
+const compression = require('compression');
+const redis = require('redis');
+const util = require("util");
+
+app.use(compression({
+    level: 6,
+    threshold: 0,
+}));
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://streetlight.onrender.com','https://streetlightblog.com','https://www.streetlightblog.com'],
+    origin: ['http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com'],
     credentials: true,
 }))
 dotenv.config();
@@ -37,7 +44,7 @@ cloudinary.config({
     secure: true
 });
 
-const storage = multer.diskStorage({
+/*const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "images");
     },
@@ -55,7 +62,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
         .then(result => console.log(result));
 });
 console.log(__dirname)
-
+*/
 
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
@@ -66,6 +73,7 @@ app.use("/api/files", filesRoute)
 app.use('/api/users', require('./routes/users'));
 
 
-app.listen("5000", () => {
-    console.log("Backend is running")
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+    console.log("Backend is running on port: " + PORT)
 });
