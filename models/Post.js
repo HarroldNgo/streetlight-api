@@ -34,6 +34,10 @@ const PostSchema = new mongoose.Schema(
         comingsoon:{
             type:Boolean,
             required:true
+        },
+        videolink:{
+            type:String,
+            required:false
         }
     },
     { timestamps: true }
