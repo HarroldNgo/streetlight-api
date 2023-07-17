@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require('slugify');
 
 const PostSchema = new mongoose.Schema(
     {
@@ -19,10 +20,6 @@ const PostSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        photourl: {
-            type: String,
-            required: false,
-        },
         categories: {
             type: String,
             required: true,
@@ -38,9 +35,28 @@ const PostSchema = new mongoose.Schema(
         videolink:{
             type:String,
             required:false
-        }
+        },
+        slug:{
+            type:String,
+        },
+        metadesc:{
+            type:String,
+            required: false
+        },
     },
     { timestamps: true }
 );
+PostSchema.pre('save', async function(next) {
+    console.log(this.title)
+    this.slug = slugify(this.title, {remove: /[*+~.,;()'"!:@]/g, lower: true})
+
+    next();
+});
+PostSchema.pre('findOneAndUpdate', async function(next) {
+    const update =  this.getUpdate();
+    console.log(update.$set.title)
+    update.$set.slug = slugify(update.$set.title, {remove: /[*+~.,;()'"!:@]/g, lower: true})
+    next();
+});
 
 module.exports = mongoose.model("Post", PostSchema);

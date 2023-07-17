@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const postRoute = require("./routes/posts");
+const coverRoute = require("./routes/covers");
 const categoryRoute = require("./routes/categories");
 const authRoute = require("./routes/auth");
 const regRoute = require("./routes/register");
@@ -22,7 +23,7 @@ app.use(compression({
 }));
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com', 'http://192.168.1.22', 'http://127.0.0.1'],
+    origin: ['http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
     credentials: true,
 }))
 dotenv.config();
@@ -65,6 +66,7 @@ console.log(__dirname)
 */
 
 app.use("/api/posts", postRoute);
+app.use("/api/covers", coverRoute);
 app.use("/api/categories", categoryRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/refresh", refreshRoute);

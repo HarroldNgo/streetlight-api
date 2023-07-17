@@ -1274,6 +1274,14 @@
   "resolved" "https://registry.npmjs.org/deep-is/-/deep-is-0.1.4.tgz"
   "version" "0.1.4"
 
+"deepdash@^5.3.5":
+  "integrity" "sha512-GRzJ0q9PDj2T+J2fX+b+TlUa2NlZ11l6vJ8LHNKVGeZ8CfxCuJaCychTq07iDRTvlfO8435jlvVS1QXBrW9kMg=="
+  "resolved" "https://registry.npmjs.org/deepdash/-/deepdash-5.3.9.tgz"
+  "version" "5.3.9"
+  dependencies:
+    "lodash" "^4.17.21"
+    "lodash-es" "^4.17.21"
+
 "degenerator@^3.0.2":
   "integrity" "sha512-c0mef3SNQo56t6urUU6tdQAs+ThoD0o9B9MJ8HEt7NQcGEILCRFqQb7ZbP9JAv+QF1Ky5plydhMR/IrqWDm+TQ=="
   "resolved" "https://registry.npmjs.org/degenerator/-/degenerator-3.0.2.tgz"
@@ -1799,7 +1807,12 @@
     "prelude-ls" "~1.1.2"
     "type-check" "~0.3.2"
 
-"lodash@^4.17.21", "lodash@>=4.0":
+"lodash-es@^4.17.21":
+  "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
+  "resolved" "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz"
+  "version" "4.17.21"
+
+"lodash@^4.17.20", "lodash@^4.17.21", "lodash@>=4.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -1928,6 +1941,16 @@
     "@aws-sdk/credential-providers" "^3.186.0"
     "saslprep" "^1.0.3"
 
+"mongoose-slug-updater@^3.3.0":
+  "integrity" "sha512-rFR+SjWP/lDRuj2hPBZTPq4rQnR34oH5lDGR4/AhlBLmlOr+3hurOoUCGzu+Fic+Y7ejgQ+K7oeHCcg2NsbCmA=="
+  "resolved" "https://registry.npmjs.org/mongoose-slug-updater/-/mongoose-slug-updater-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "deepdash" "^5.3.5"
+    "lodash" "^4.17.20"
+    "shortid" "^2.2.16"
+    "speakingurl" "^14.0.1"
+
 "mongoose@^6.9.0":
   "integrity" "sha512-5tu6+trwjk5TIH6b6iYgAwmzZ0RNOxFoqXQb9h21Oi45DeM1rWM/niHxJ4ROqBISDfQMwRvLSABHTsyn3AzoFQ=="
   "resolved" "https://registry.npmjs.org/mongoose/-/mongoose-6.9.0.tgz"
@@ -1985,6 +2008,11 @@
     "object-assign" "^4.1.1"
     "type-is" "^1.6.4"
     "xtend" "^4.0.0"
+
+"nanoid@^2.1.0":
+  "integrity" "sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA=="
+  "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-2.1.11.tgz"
+  "version" "2.1.11"
 
 "negotiator@0.6.3":
   "integrity" "sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg=="
@@ -2381,6 +2409,13 @@
   "resolved" "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"
   "version" "1.2.0"
 
+"shortid@^2.2.16":
+  "integrity" "sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g=="
+  "resolved" "https://registry.npmjs.org/shortid/-/shortid-2.2.16.tgz"
+  "version" "2.2.16"
+  dependencies:
+    "nanoid" "^2.1.0"
+
 "side-channel@^1.0.4":
   "integrity" "sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw=="
   "resolved" "https://registry.npmjs.org/side-channel/-/side-channel-1.0.4.tgz"
@@ -2406,6 +2441,11 @@
   "version" "1.1.0"
   dependencies:
     "semver" "~7.0.0"
+
+"slugify@^1.6.6":
+  "integrity" "sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw=="
+  "resolved" "https://registry.npmjs.org/slugify/-/slugify-1.6.6.tgz"
+  "version" "1.6.6"
 
 "smart-buffer@^4.2.0":
   "integrity" "sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg=="
@@ -2440,6 +2480,11 @@
   "version" "3.0.3"
   dependencies:
     "memory-pager" "^1.0.2"
+
+"speakingurl@^14.0.1":
+  "integrity" "sha512-1POYv7uv2gXoyGFpBCmpDVSNV74IfsWlDW216UPjbWufNf+bSU6GdbDsxdcxtfwb4xlI3yxzOTKClUosxARYrQ=="
+  "resolved" "https://registry.npmjs.org/speakingurl/-/speakingurl-14.0.1.tgz"
+  "version" "14.0.1"
 
 "statuses@2.0.1":
   "integrity" "sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ=="

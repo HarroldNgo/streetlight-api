@@ -31,7 +31,8 @@ router.put("/:id", async (req, res) => {
 //DELETE POST
 router.delete("/:id", async (req, res) => {
     try {
-        const deletePost = await Post.findByIdAndUpdate(req.params.id);
+        const deletePost = await Post.findById(req.params.id);
+        console.log(deletePost)
         await deletePost.delete()
         res.status(200).json("Post has been deleted...");
     } catch (err) {
@@ -42,7 +43,7 @@ router.delete("/:id", async (req, res) => {
 //GET POST
 router.get("/:id", async (req, res) => {
     try {
-        const post = await Post.findByIdAndUpdate(req.params.id).sort({"_id":-1});
+        const post = await Post.findById(req.params.id);
         res.status(200).json(post);
     } catch (err) {
         res.status(500).json(err);
@@ -118,6 +119,7 @@ router.get("/", async (req, res) => {
     const comingsoon = req.query.comingsoon;
     const frontpage = req.query.frontpage;
     const id = req.query.id;
+    const slug = req.query.slug;
 
     try {
         let posts;
@@ -139,7 +141,7 @@ router.get("/", async (req, res) => {
                 _id: {
                     $in: [id]
                 }
-            }).sort({"_id":-1});
+            });
         }
         else if (frontpage) {
             posts = await Post.find({
@@ -147,6 +149,13 @@ router.get("/", async (req, res) => {
                     $in: [frontpage]
                 }
             }).sort({"_id":-1});
+        }
+        else if (slug) {
+            posts = await Post.find({
+                slug: {
+                    $in: [slug]
+                }
+            })
         }
         else {
             posts = await Post.find().sort({"_id":-1});
