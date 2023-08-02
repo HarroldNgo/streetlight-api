@@ -23,7 +23,7 @@ app.use(compression({
 }));
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
+    //origin: ['http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
     credentials: true,
 }))
 dotenv.config();
