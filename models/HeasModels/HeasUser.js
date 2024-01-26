@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const { connectDBs } = require("../db");
+const { connectDBs } = require("../../db");
 
-const UserSchema = new mongoose.Schema({
+const HeasUserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -12,5 +12,6 @@ const UserSchema = new mongoose.Schema({
     },
     refreshToken: String
 }, { timestamps: true });
+
 const {streetlightDB, heasDB} = connectDBs();
-module.exports = streetlightDB.model("User", UserSchema);
+module.exports = heasDB.model("User", HeasUserSchema);

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { connectDBs } = require("../db");
 
 const CategorySchema  = new mongoose.Schema(
     {
@@ -9,5 +10,5 @@ const CategorySchema  = new mongoose.Schema(
     },
     { timestamps: true }
 );
-
-module.exports = mongoose.model("Category", CategorySchema);
+const {streetlightDB, heasDB} = connectDBs();
+module.exports = streetlightDB.model("Category", CategorySchema);

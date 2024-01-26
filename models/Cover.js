@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const slugify = require('slugify');
+const { connectDBs } = require("../db");
 
 const CoverSchema = new mongoose.Schema(
     {
@@ -14,5 +14,5 @@ const CoverSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
-
-module.exports = mongoose.model("Cover", CoverSchema);
+const {streetlightDB, heasDB} = connectDBs();
+module.exports = streetlightDB.model("Cover", CoverSchema);

@@ -17,27 +17,23 @@ const compression = require('compression');
 const redis = require('redis');
 const util = require("util");
 
+const { connectDBs } = require("./db");
+
 app.use(compression({
     level: 6,
     threshold: 0,
 }));
 
 app.use(cors({
-    //origin: ['http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
+    origin: ['https://equityinhealth.ca','https://macheas.ca','http://localhost:5173', 'http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
     credentials: true,
 }))
-dotenv.config();
 app.use(express.json());
-app.use("/images", express.static(path.join(__dirname, "/images")))
+//app.use("/images", express.static(path.join(__dirname, "/images")))
 
-mongoose.set('strictQuery', false);
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(console.log("connected to MongoDB"))
-    .catch(err => console.log(err))
+connectDBs();
 
+/*
 cloudinary.config({
     cloud_name: 'dmluqp41s',
     api_key: '927784175515996',
@@ -45,7 +41,7 @@ cloudinary.config({
     secure: true
 });
 
-/*const storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "images");
     },
@@ -64,6 +60,12 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 console.log(__dirname)
 */
+app.use("/api/heas", require('./routes/HeasRoutes/heas'));
+app.use("/api/heas/slides", require('./routes/HeasRoutes/heasSlides'));
+app.use("/api/heas/users", require('./routes/HeasRoutes/heasUsers'));
+app.use("/api/heas/auth", require('./routes/HeasRoutes/heasAuth'));
+app.use("/api/heas/refresh", require('./routes/HeasRoutes/heasRefresh'));
+app.use("/api/heas/register", require('./routes/HeasRoutes/heasRegister'));
 
 app.use("/api/posts", postRoute);
 app.use("/api/covers", coverRoute);
@@ -77,5 +79,6 @@ app.use('/api/users', require('./routes/users'));
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-    console.log("Backend is running on port: " + PORT)
+    console.log("connected to Heas MongoDB");
+    console.log("Backend is running on port: " + PORT);
 });

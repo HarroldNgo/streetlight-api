@@ -49,6 +49,7 @@ router.get("/:id", async (req, res) => {
         res.status(500).json(err);
     }
 });
+
 //GET (EXCLUDING + frontpage) POSTS 
 router.get("/notcat/:cat/:frontpage", async (req, res) => {
     try {

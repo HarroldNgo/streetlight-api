@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require('slugify');
+const { connectDBs } = require("../db");
 
 const PostSchema = new mongoose.Schema(
     {
@@ -59,4 +60,5 @@ PostSchema.pre('findOneAndUpdate', async function(next) {
     next();
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+const {streetlightDB, heasDB} = connectDBs();
+module.exports = streetlightDB.model("Post", PostSchema);
