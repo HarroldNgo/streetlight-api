@@ -3,23 +3,16 @@ const Heas = require("../../models/HeasModels/Heas");
 const HeasHomeSlide = require("../../models/HeasModels/HeasHomeSlide");
 const HeasAboutSlide = require("../../models/HeasModels/HeasAboutSlide");
 
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-router.post('/', upload.single('data'), async (req, res) => {
+router.post('/', async (req, res) => {
   try {
 
-    const { context, title, desc, photo } = req.body;
+    const { context, title, desc, photo, embedlink } = req.body;
     const data = {};
-    if (req.file) {
-      data.data = req.file.buffer;
-      data.contentType = req.file.mimetype;
-    }
     data.context = context;
     data.title = title;
     data.desc = desc;
     data.photo = photo;
+    data.embedlink = embedlink;
 
     const newHeas = new Heas(data);
 
@@ -33,21 +26,13 @@ router.post('/', upload.single('data'), async (req, res) => {
 });
 
 //UPDATE HEAS
-router.put("/:id", upload.single('data'), async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    const file = req.file ? req.file.buffer : undefined
-    const type = req.file ? req.file.mimetype : undefined
     const updatedHeas = await Heas.findByIdAndUpdate(
       req.params.id,
-      {$set:{
-        context: req.body.context,
-        title: req.body.title,
-        sub: req.body.sub,
-        desc: req.body.desc,
-        photo: req.body.photo,
-        data: file,
-        contentType: type,
-      }},
+      {
+        $set: req.body
+      },
       { new: true },
 
     );
@@ -79,26 +64,6 @@ router.get("/:id", async (req, res) => {
     res.status(200).json(heas);
   } catch (err) {
     res.status(500).json(err);
-  }
-});
-
-//GET HEAS PDF
-router.get('/:id/view', async (req, res) => {
-  try {
-    const pdf = await Heas.findById(req.params.id);
-
-    if (!pdf) {
-      return res.status(404).send('PDF not found');
-    }
-
-    // Set content type header to indicate that the response contains a PDF
-    res.setHeader('Content-Type', pdf.contentType);
-
-    // Send the binary data of the PDF as the response
-    res.send(pdf.data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
   }
 });
 

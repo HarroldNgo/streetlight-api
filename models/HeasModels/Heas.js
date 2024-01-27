@@ -20,10 +20,7 @@ const HeasSchema = new mongoose.Schema(
         photo: {
             type: String,
         },
-        data: {
-            type: Buffer,
-        },
-        contentType: {
+        embedlink: {
             type: String,
         }
     },
