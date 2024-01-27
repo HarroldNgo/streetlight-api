@@ -25,7 +25,7 @@ app.use(compression({
 }));
 
 app.use(cors({
-    origin: ['https://heas.onrender.com','https://equityinhealth.ca','https://macheas.ca','http://localhost:5173', 'http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
+    origin: ['https://www.macheas.ca','https://macheas.ca','https://heas.onrender.com','https://equityinhealth.ca','https://macheas.ca','http://localhost:5173', 'http://localhost:3000', 'https://streetlight.onrender.com', 'https://streetlightblog.com', 'https://www.streetlightblog.com', 'https://test-d6yp.onrender.com'],
     credentials: true,
 }))
 app.use(express.json());
