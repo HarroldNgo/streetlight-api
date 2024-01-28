@@ -4,21 +4,12 @@ const HeasHomeSlide = require("../../models/HeasModels/HeasHomeSlide");
 const HeasAboutSlide = require("../../models/HeasModels/HeasAboutSlide");
 
 router.post('/', async (req, res) => {
+  const newHeas = new Heas(req.body);
   try {
+  
+    const savedHeas = await newHeas.save();
 
-    const { context, title, desc, photo, embedlink } = req.body;
-    const data = {};
-    data.context = context;
-    data.title = title;
-    data.desc = desc;
-    data.photo = photo;
-    data.embedlink = embedlink;
-
-    const newHeas = new Heas(data);
-
-    await newHeas.save();
-
-    res.status(200).send('File uploaded successfully');
+    res.status(200).json(savedHeas);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -37,7 +28,6 @@ router.put("/:id", async (req, res) => {
 
     );
     res.status(200).json(updatedHeas);
-    console.log(file)
   } catch (err) {
     res.status(500).json(err);
     console.log(err);
