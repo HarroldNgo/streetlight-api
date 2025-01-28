@@ -16,6 +16,7 @@ const cloudinary = require('cloudinary').v2;
 const compression = require('compression');
 const redis = require('redis');
 const util = require("util");
+const axios = require('axios'); 
 
 const { connectDBs } = require("./db");
 
@@ -32,6 +33,25 @@ app.use(express.json());
 //app.use("/images", express.static(path.join(__dirname, "/images")))
 
 connectDBs();
+
+// Keep-alive endpoint
+app.get('/keepalive', (req, res) => {
+    res.status(200).send('OK');
+});
+
+// Set up self-ping every 14 minutes
+const KEEP_ALIVE_INTERVAL = 14 * 60 * 1000; // 14 minutes in milliseconds
+const BASE_URL = process.env.BASE_URL || 'https://streetlight-api.onrender.com';
+
+setInterval(() => {
+    axios.get(`${BASE_URL}/keepalive`)
+        .then(response => {
+            console.log('Keep-alive ping successful:', response.status);
+        })
+        .catch(error => {
+            console.error('Keep-alive ping failed:', error.message);
+        });
+}, KEEP_ALIVE_INTERVAL);
 
 /*
 cloudinary.config({
@@ -82,3 +102,4 @@ app.listen(PORT, () => {
     console.log("connected to Heas MongoDB");
     console.log("Backend is running on port: " + PORT);
 });
+
